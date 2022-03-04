@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Hand Crafted Market</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment"></string>
+    <string name="add_to_cart">ADD TO CART</string>
+    <string name="done">Done</string>
+    <string name="buy">Buy</string>
+<!--    TODO: UPDATE FOR RELEASES-->
+    <string name="ship_engine">TEST_evPIs0R2LkAq0Z9/rvv4HItM7o6NVI+U6lVdnrb6sRY</string>
+</resources>
