@@ -86,6 +86,6 @@ fun ProductListScreen(navController: NavController?, product: Product?) {
 
 @Preview
 @Composable
-fun ProductListScreen(){
+fun ProductListScreenPreview(){
     ProductListScreen(navController = null, product = null)
 }
