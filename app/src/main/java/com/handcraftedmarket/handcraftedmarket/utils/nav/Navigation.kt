@@ -15,12 +15,12 @@ fun Navigation(scaffoldState: ScaffoldState, navController: NavHostController) {
         composable(Screen.ProductScreen.route){
             if (navController.previousBackStackEntry?.arguments?.getSerializable("prod") != null) {
                 val product = navController.previousBackStackEntry?.arguments?.getSerializable("prod") as Product
-                ProductListScreen(navController = navController, product = product)
+                ProductScreen(navController = navController, product = product)
             }
         }
 
-        composable(Screen.ProductScreen.route){
-            ProductScreen(navController = navController)
+        composable(Screen.ProductListScreen.route){
+            ProductListScreen(navController = navController)
         }
 
     }

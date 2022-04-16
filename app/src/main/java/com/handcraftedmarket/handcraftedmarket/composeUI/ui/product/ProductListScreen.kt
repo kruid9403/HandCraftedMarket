@@ -33,7 +33,7 @@ import io.branch.referral.util.Product
 
 @OptIn(ExperimentalFoundationApi::class, ExperimentalCoilApi::class)
 @Composable
-fun ProductListScreen(navController: NavController?, product: Product?) {
+fun ProductListScreen(navController: NavController?) {
     val viewModel: ProductViewModel = viewModel()
     val context = LocalContext.current
 
@@ -87,5 +87,5 @@ fun ProductListScreen(navController: NavController?, product: Product?) {
 @Preview
 @Composable
 fun ProductListScreenPreview(){
-    ProductListScreen(navController = null, product = null)
+    ProductListScreen(navController = null)
 }

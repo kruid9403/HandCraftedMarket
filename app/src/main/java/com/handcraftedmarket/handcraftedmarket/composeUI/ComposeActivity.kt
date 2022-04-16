@@ -28,9 +28,10 @@ fun AppComponent() {
         Scaffold(
             scaffoldState = scaffoldState,
             content = {
-                Navigation(
-                    scaffoldState = scaffoldState,
-                    navController = navController)
+                        Navigation(
+                            scaffoldState = scaffoldState,
+                            navController = navController
+                        )
                       },
             drawerContent = {
                 NavDrawer(scaffoldState = scaffoldState, navController = navController)
