@@ -1,6 +1,5 @@
 package com.handcraftedmarket.handcraftedmarket.utils.nav
 
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.material.ScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
@@ -15,14 +14,13 @@ fun Navigation(scaffoldState: ScaffoldState, navController: NavHostController) {
     NavHost(navController = navController, startDestination =  Screen.ProductListScreen.route){
         composable(Screen.ProductScreen.route){
             if (navController.previousBackStackEntry?.arguments?.getSerializable("prod") != null) {
-                val product =
-                    navController.previousBackStackEntry?.arguments?.getSerializable("prod") as Product
-                ProductScreen(navController = navController, product = product)
+                val product = navController.previousBackStackEntry?.arguments?.getSerializable("prod") as Product
+                ProductListScreen(navController = navController, product = product)
             }
         }
 
-        composable(Screen.ProductListScreen.route){
-            ProductListScreen(navController = navController)
+        composable(Screen.ProductScreen.route){
+            ProductScreen(navController = navController)
         }
 
     }

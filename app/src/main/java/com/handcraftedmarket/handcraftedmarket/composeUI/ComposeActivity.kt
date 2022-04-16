@@ -35,7 +35,8 @@ fun AppComponent() {
             drawerContent = {
                 NavDrawer(scaffoldState = scaffoldState, navController = navController)
             },
-            drawerGesturesEnabled = true
+            drawerGesturesEnabled = true,
+            topBar = { MainTopBar(navController = navController, scaffoldState = scaffoldState) }
         )
     }
 }
