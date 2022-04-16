@@ -1,6 +1,7 @@
 package com.handcraftedmarket.handcraftedmarket.composeUI.ui.product
 
 import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
@@ -10,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.modifier.modifierLocalConsumer
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -23,6 +25,9 @@ import com.handcraftedmarket.handcraftedmarket.viewModel.ProductDetailVM
 @Composable
 fun ProductScreen(navController: NavController?, product: Product) {
     val viewModel: ProductDetailVM = viewModel()
+    val context = LocalContext.current
+
+    Toast.makeText(context, "toast", Toast.LENGTH_LONG).show()
 
     Log.e("ProdScreen", "product.imgUrl.toString()")
     Column(

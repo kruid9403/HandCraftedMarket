@@ -16,8 +16,6 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontStyle
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -26,9 +24,11 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
+import com.google.gson.Gson
 import com.handcraftedmarket.handcraftedmarket.composeUI.ui.theme.Niconne
 import com.handcraftedmarket.handcraftedmarket.utils.nav.Screen
 import com.handcraftedmarket.handcraftedmarket.viewModel.ProductViewModel
+import com.squareup.moshi.Json
 import io.branch.referral.util.Product
 
 @OptIn(ExperimentalFoundationApi::class, ExperimentalCoilApi::class)
@@ -48,10 +48,8 @@ fun ProductListScreen(navController: NavController?) {
                 modifier = Modifier
                     .padding(8.dp)
                     .clickable{
-                        val bundle = bundleOf(
-                            "prod" to prod
-                        )
-                        navController?.currentBackStackEntry?.arguments?.putAll(bundle)
+                        val bund =
+                        navController?.currentBackStackEntry?.arguments?.putParcelable("prod", prod)
                         navController?.navigate(Screen.ProductScreen.route)
                     }
             ) {
