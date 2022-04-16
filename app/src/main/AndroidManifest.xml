@@ -2,11 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.handcraftedmarket.handcraftedmarket">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.CAMERA"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
+        android:name="com.handcraftedmarket.MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -14,15 +15,42 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.HandCraftedMarket">
         <activity
-            android:name="com.handcraftedmarket.handcraftedmarket.MainActivity"
+            android:name=".composeUI.ComposeActivity"
             android:exported="true"
-            android:screenOrientation="portrait">
+            android:label="@string/title_activity_compose"
+            android:theme="@style/Theme.HandCraftedMarket" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter> <!-- Branch URI Scheme -->
+            <intent-filter>
+                <data
+                    android:host="open"
+                    android:scheme="handcraftedmarket" />
+
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:screenOrientation="portrait">
+
+        </activity>
+
+        <meta-data
+            android:name="io.branch.sdk.BranchKey"
+            android:value="key_live_kpWUzMZWowFlaJf53o0hLdfmtwfPi7G6" />
+        <meta-data
+            android:name="io.branch.sdk.BranchKey.test"
+            android:value="key_test_pl0QzI05fDxpfMe7Yd4cRopbBvkPb3Xd" />
+        <meta-data
+            android:name="io.branch.sdk.TestMode"
+            android:value="true" />
     </application>
 
 </manifest>

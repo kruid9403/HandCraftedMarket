@@ -5,6 +5,7 @@
     <string name="add_to_cart">ADD TO CART</string>
     <string name="done">Done</string>
     <string name="buy">Buy</string>
-<!--    TODO: UPDATE FOR RELEASES-->
+    <!--    TODO: UPDATE FOR RELEASES-->
     <string name="ship_engine">TEST_evPIs0R2LkAq0Z9/rvv4HItM7o6NVI+U6lVdnrb6sRY</string>
+    <string name="title_activity_compose">ComposeActivity</string>
 </resources>
