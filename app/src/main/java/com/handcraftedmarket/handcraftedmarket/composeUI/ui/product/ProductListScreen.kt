@@ -16,20 +16,16 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.core.os.bundleOf
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
-import com.google.gson.Gson
 import com.handcraftedmarket.handcraftedmarket.composeUI.ui.theme.Niconne
-import com.handcraftedmarket.handcraftedmarket.utils.nav.Screen
 import com.handcraftedmarket.handcraftedmarket.viewModel.ProductViewModel
-import com.squareup.moshi.Json
-import io.branch.referral.util.Product
 
 @OptIn(ExperimentalFoundationApi::class, ExperimentalCoilApi::class)
 @Composable
@@ -37,45 +33,42 @@ fun ProductListScreen(navController: NavController?) {
     val viewModel: ProductViewModel = viewModel()
     val context = LocalContext.current
 
-    LazyVerticalGrid(
-        cells = GridCells.Fixed(2),
-        modifier = Modifier
-            .fillMaxSize()
-        ){
-        items(viewModel.productList.sortedBy { it.saleCount }){prod ->
-            Column(
-                horizontalAlignment = Alignment.CenterHorizontally,
-                modifier = Modifier
-                    .padding(8.dp)
-                    .clickable{
-                        val bund =
-                        navController?.currentBackStackEntry?.arguments?.putParcelable("prod", prod)
-                        navController?.navigate(Screen.ProductScreen.route)
-                    }
-            ) {
-                Image(
-                    painter = rememberImagePainter(data = prod.imgUrl[0]),
-                    contentDescription = "Product Image",
-                    contentScale = ContentScale.Crop,
+    if (viewModel.productList.size > 0) {
+        LazyVerticalGrid(
+            cells = GridCells.Fixed(2),
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(top = 16.dp)
+        ) {
+            items(viewModel.productList) { prod ->
+                Column(
                     modifier = Modifier
-                        .height(150.dp)
-                        .width(150.dp)
-                        .shadow(elevation = 8.dp, shape = CircleShape)
-                )
-
-                Text(text = prod.name,
-                    style = TextStyle(
-                        fontSize = 24.sp,
-                        fontFamily = Niconne
+                        .padding(8.dp)
+                        .clickable {
+                            viewModel.saveProduct(prod, navController)
+                        },
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                ) {
+                    Image(
+                        painter = rememberImagePainter(data = prod.imgUrl[0]),
+                        contentDescription = "Product Image",
+                        contentScale = ContentScale.Crop,
+                        modifier = Modifier
+                            .height(150.dp)
+                            .width(150.dp)
+                            .shadow(elevation = 12.dp, shape = CircleShape)
                     )
-                )
 
-                Text(text = prod.saleCount.toString(),
-                    style = TextStyle(
-                        fontSize = 24.sp,
-                        fontFamily = Niconne
+                    Text(
+                        text = prod.name,
+                        style = TextStyle(
+                            fontSize = 24.sp,
+                            fontFamily = Niconne,
+                            textAlign = TextAlign.Center
+                        ),
+                        maxLines = 3
                     )
-                )
+                }
             }
         }
     }

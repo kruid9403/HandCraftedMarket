@@ -1,11 +1,31 @@
 package com.handcraftedmarket.handcraftedmarket.viewModel
 
 import android.app.Application
-import android.util.Log
-import androidx.lifecycle.MutableLiveData
-import com.handcraftedmarket.handcraftedmarket.model.CartList
+import androidx.compose.runtime.mutableStateOf
+import androidx.lifecycle.viewModelScope
+import com.handcraftedmarket.handcraftedmarket.dao.ProductDao
+import com.handcraftedmarket.handcraftedmarket.model.Product
+import com.handcraftedmarket.handcraftedmarket.repos.ProductRepo
 import com.handcraftedmarket.handcraftedmarket.ui.BaseViewModel
+import kotlinx.coroutines.launch
+import org.koin.core.KoinComponent
+import org.koin.core.inject
 
-class ProductDetailVM(application: Application): BaseViewModel(application) {
+class ProductDetailVM(application: Application): BaseViewModel(application), KoinComponent {
 
+    val productDao: ProductDao by inject()
+    val product = mutableStateOf<Product?>(null)
+
+    fun getProduct() {
+        viewModelScope.launch {
+            product.value = productDao.getProduct()
+        }
+
+    }
+
+    fun nukeProduct(){
+        viewModelScope.launch {
+            productDao.nukeProduct()
+        }
+    }
 }

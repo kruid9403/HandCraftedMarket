@@ -15,15 +15,8 @@ import com.handcraftedmarket.handcraftedmarket.model.Product
 @Composable
 fun Navigation(scaffoldState: ScaffoldState, navController: NavHostController) {
     NavHost(navController = navController, startDestination =  Screen.ProductListScreen.route){
-        composable(Screen.ProductScreen.route, arguments = listOf(navArgument("prod"){
-            type = NavType.StringType
-        })){
-            Log.e("Nav", "Prod screen unchecked")
-            if (navController.currentBackStackEntry?.arguments?.getSerializable("prod") != null) {
-                Log.e("Nav", "prod screen")
-                val product = navController.currentBackStackEntry?.arguments?.getSerializable("prod") as Product
-                ProductScreen(navController = navController, product = product)
-            }
+        composable(Screen.ProductScreen.route){
+            ProductScreen(navController = navController)
         }
 
         composable(Screen.ProductListScreen.route){

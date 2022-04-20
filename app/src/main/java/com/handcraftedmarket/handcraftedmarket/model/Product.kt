@@ -32,14 +32,18 @@ data class Product(
 @Entity
 @JsonClass(generateAdapter = true)
 data class ProductOptions(
-    var attribute: String = "",
-    var optionalList: ArrayList<String>? = ArrayList()
-): Serializable
+    var attribute: String,
+    var optionalList: ArrayList<String>
+): Serializable {
+    constructor(): this("", ArrayList())
+}
 
 @Entity
 @JsonClass(generateAdapter = true)
 data class StandardDetails(
-    var attribute: String = "",
-    var detailsList: ArrayList<String>? = ArrayList()
-): Serializable
+    var attribute: String,
+    var detailsList: ArrayList<String>
+): Serializable{
+    constructor():this("", ArrayList())
+}
 
