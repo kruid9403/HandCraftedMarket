@@ -25,54 +25,53 @@ import androidx.navigation.NavController
 import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
 import com.handcraftedmarket.handcraftedmarket.composeUI.ui.theme.Niconne
-import com.handcraftedmarket.handcraftedmarket.viewModel.ProductViewModel
+import com.handcraftedmarket.handcraftedmarket.viewModel.ProductListVM
 
 @OptIn(ExperimentalFoundationApi::class, ExperimentalCoilApi::class)
 @Composable
 fun ProductListScreen(navController: NavController?) {
-    val viewModel: ProductViewModel = viewModel()
+    val viewModel: ProductListVM = viewModel()
     val context = LocalContext.current
 
-    if (viewModel.productList.size > 0) {
-        LazyVerticalGrid(
-            cells = GridCells.Fixed(2),
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(top = 16.dp)
-        ) {
-            items(viewModel.productList) { prod ->
-                Column(
+    LazyVerticalGrid(
+        cells = GridCells.Fixed(2),
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(top = 16.dp)
+    ) {
+        items(viewModel.productList) { prod ->
+            Column(
+                modifier = Modifier
+                    .padding(8.dp)
+                    .clickable {
+                        viewModel.saveProduct(product = prod, navController = navController)
+                    },
+                horizontalAlignment = Alignment.CenterHorizontally,
+            ) {
+                Image(
+                    painter = rememberImagePainter(data = prod.imgUrl[0]),
+                    contentDescription = "Product Image",
+                    contentScale = ContentScale.Crop,
                     modifier = Modifier
-                        .padding(8.dp)
-                        .clickable {
-                            viewModel.saveProduct(prod, navController)
-                        },
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                ) {
-                    Image(
-                        painter = rememberImagePainter(data = prod.imgUrl[0]),
-                        contentDescription = "Product Image",
-                        contentScale = ContentScale.Crop,
-                        modifier = Modifier
-                            .height(150.dp)
-                            .width(150.dp)
-                            .shadow(elevation = 12.dp, shape = CircleShape)
-                    )
+                        .height(150.dp)
+                        .width(150.dp)
+                        .shadow(elevation = 12.dp, shape = CircleShape)
+                )
 
-                    Text(
-                        text = prod.name,
-                        style = TextStyle(
-                            fontSize = 24.sp,
-                            fontFamily = Niconne,
-                            textAlign = TextAlign.Center
-                        ),
-                        maxLines = 3
-                    )
-                }
+                Text(
+                    text = prod.name,
+                    style = TextStyle(
+                        fontSize = 24.sp,
+                        fontFamily = Niconne,
+                        textAlign = TextAlign.Center
+                    ),
+                    maxLines = 3
+                )
             }
         }
     }
 }
+
 
 
 @Preview

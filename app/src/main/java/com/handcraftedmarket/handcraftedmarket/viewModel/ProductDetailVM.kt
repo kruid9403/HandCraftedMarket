@@ -14,7 +14,6 @@ import org.koin.core.inject
 class ProductDetailVM(application: Application): BaseViewModel(application), KoinComponent {
 
     val productDao: ProductDao by inject()
-    val product = mutableStateOf<Product?>(null)
 
     fun getProduct() {
         viewModelScope.launch {

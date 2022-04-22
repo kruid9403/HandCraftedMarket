@@ -14,4 +14,9 @@ abstract class DatabaseRepo<T>: BaseRepo<T>(), KoinComponent {
     override suspend fun storeToCache(t: T) {
         TODO("Not yet implemented")
     }
+
+    override suspend fun nukeProduct(t: T) {
+        return nukeProduct(t)
+    }
+
 }

@@ -6,17 +6,14 @@ import androidx.compose.runtime.mutableStateListOf
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import com.handcraftedmarket.handcraftedmarket.model.Product
-import com.handcraftedmarket.handcraftedmarket.repos.ProductRepo
 import com.handcraftedmarket.handcraftedmarket.ui.BaseViewModel
 import com.handcraftedmarket.handcraftedmarket.utils.nav.Screen
 import kotlinx.coroutines.launch
 import org.koin.core.KoinComponent
-import org.koin.core.inject
 
-class ProductViewModel(application: Application): BaseViewModel(application), KoinComponent {
+class ProductListVM(application: Application): BaseViewModel(application = application), KoinComponent {
 
     val productList = mutableStateListOf<Product>()
-    val productRepo: ProductRepo by inject()
 
     init {
         firebaseManager.productData().whereEqualTo("visible", true)
@@ -28,9 +25,14 @@ class ProductViewModel(application: Application): BaseViewModel(application), Ko
                 }
             }
             .addOnFailureListener { Log.e("ProductVM", it.localizedMessage) }
+
     }
 
-    fun saveProduct(product: Product, navController: NavController?){
+
+    fun saveProduct(
+        product: Product,
+        navController: NavController?
+    ){
         viewModelScope.launch {
             productRepo.storeToCache(product)
             navController?.navigate(Screen.ProductScreen.route)

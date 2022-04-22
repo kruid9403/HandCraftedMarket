@@ -67,7 +67,6 @@ fun ProductScreen(navController: NavController?) {
     )
 
     BackHandler {
-        viewModel.nukeProduct()
         navController?.popBackStack()
     }
 
