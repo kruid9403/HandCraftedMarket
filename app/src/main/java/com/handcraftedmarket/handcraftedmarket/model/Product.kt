@@ -18,7 +18,7 @@ data class Product(
     var saleCount: Int,
     var backOrder: Boolean,
     var productStandard: ArrayList<StandardDetails>,
-    var options: ArrayList<ProductOptions>,
+    var options: ArrayList<StandardDetails>,
     var category: String,
     var quantity: Int,
     var purchaseQty: Int

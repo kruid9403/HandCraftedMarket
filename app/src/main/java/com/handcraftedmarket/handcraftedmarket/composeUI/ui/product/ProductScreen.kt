@@ -7,6 +7,7 @@ import androidx.compose.animation.core.animateSizeAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
@@ -19,6 +20,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
@@ -35,6 +37,9 @@ import com.guru.fontawesomecomposelib.FaIcon
 import com.guru.fontawesomecomposelib.FaIcons
 import com.handcraftedmarket.handcraftedmarket.composeUI.ui.theme.ColorOnPrimary
 import com.handcraftedmarket.handcraftedmarket.composeUI.ui.theme.Niconne
+import com.handcraftedmarket.handcraftedmarket.model.ProductOptions
+import com.handcraftedmarket.handcraftedmarket.model.StandardDetails
+import com.handcraftedmarket.handcraftedmarket.utils.isColorDark
 import com.handcraftedmarket.handcraftedmarket.viewModel.ProductDetailVM
 
 @OptIn(ExperimentalCoilApi::class)
@@ -50,6 +55,7 @@ fun ProductScreen(navController: NavController?) {
     val primeImage = remember { mutableStateOf(viewModel.product.value?.imgUrl?.get(0)) }
     val standardVis = remember { mutableStateOf(false) }
     val standardOpenState = remember { mutableStateOf(false) }
+    val customOpenState = remember { mutableStateOf(false) }
 
 
     val config = LocalConfiguration.current
@@ -58,7 +64,19 @@ fun ProductScreen(navController: NavController?) {
         if(!standardOpenState.value){
             Size(config.screenWidthDp.toFloat(), 0f)
         }else{
-            Size(config.screenWidthDp.toFloat(), 50f)
+            Size(config.screenWidthDp.toFloat(), 150f)
+        },
+        animationSpec = tween(
+            durationMillis = 500,
+            easing = LinearOutSlowInEasing
+        )
+    )
+    val customSizeAn by animateSizeAsState(
+        targetValue =
+        if(!customOpenState.value){
+            Size(config.screenWidthDp.toFloat(), 0f)
+        }else{
+            Size(config.screenWidthDp.toFloat(), 150f)
         },
         animationSpec = tween(
             durationMillis = 500,
@@ -161,40 +179,153 @@ fun ProductScreen(navController: NavController?) {
                 tint = ColorOnPrimary,
                 modifier = Modifier
                     .clickable{
-
+                        standardOpenState.value = !standardOpenState.value
                     }
             )
         }
 
-        viewModel.product.value?.productStandard?.forEach { option ->
-            OptionsRow(option = option)
+
+        LazyColumn(
+            modifier = Modifier
+                .size(height = sizeAn.height.dp, width = sizeAn.width.dp),
+            content = {
+                items(viewModel.product.value?.productStandard!!){ standard: StandardDetails ->
+                    Row(
+                        modifier = Modifier
+                            .height(24.dp),
+                        horizontalArrangement = Arrangement.End,
+                        verticalAlignment = Alignment.CenterVertically
+                    ){
+                        Text(text = standard.attribute,
+                            modifier = Modifier
+                                .padding(end = 16.dp)
+                        )
+
+
+                        LazyColumn(
+                            content = {
+                                items(standard.detailsList){ standardItem ->
+                                    Text(text = standardItem,
+                                        modifier = Modifier
+                                            .background(color =
+                                                if (standard.attribute.lowercase().contains("color")){
+                                                    Color(android.graphics.Color.parseColor(standardItem))
+                                                }else{
+                                                    Color.Transparent
+                                                }
+                                            ),
+                                        style = TextStyle(
+                                            color =
+                                                if(standard.attribute.lowercase().contains("color") &&
+                                                            !android.graphics.Color.parseColor(standardItem).isColorDark()
+                                                        ){
+                                                    Color.Black
+                                                }else{
+                                                    Color.White
+                                                }
+                                        )
+                                    )
+                                }
+                            },
+                            modifier = Modifier
+                        )
+                    }
+                }
+            }
+        )
+
+        Row(
+            modifier = Modifier
+                .clickable {
+                    customOpenState.value = !customOpenState.value
+                }
+                .fillMaxWidth()
+                .padding(start = 16.dp, end = 16.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ){
+            Text(text = "Custom Options",
+                style = TextStyle(
+                    fontFamily = Niconne,
+                    fontSize = 24.sp
+                ),
+                modifier = Modifier
+                    .padding(start = 16.dp, end = 16.dp)
+            )
+
+            FaIcon(faIcon = FaIcons.CaretDown,
+                tint = ColorOnPrimary,
+                modifier = Modifier
+                    .clickable{
+                        customOpenState.value = !customOpenState.value
+                    }
+            )
         }
 
+//        LazyColumn(
+//            modifier = Modifier
+//                .size(height = customSizeAn.height.dp, width = customSizeAn.width.dp),
+//            content = {
+//                items(viewModel.product.value?.options!!){ item ->
+//                    Text(text = item.attribute,
+//                        style = TextStyle(color = Color.White)
+//                    )
+//                }
+//            })
 
 //        LazyColumn(
+//            modifier = Modifier
+//                .size(height = customSizeAn.height.dp, width = customSizeAn.width.dp),
 //            content = {
-//                items(viewModel.product.value?.productStandard!!){ standard ->
+//                items(viewModel.product.value?.options!!){ option ->
 //                    Row(
 //                        modifier = Modifier
+//                            .height(24.dp),
+//                        horizontalArrangement = Arrangement.End,
+//                        verticalAlignment = Alignment.CenterVertically
 //                    ){
-//                        Text(text = standard.attribute,
+//                        Text(text = option.attribute,
 //                            modifier = Modifier
 //                                .padding(end = 16.dp)
 //                        )
-//
+
+
 //                        LazyColumn(
 //                            content = {
-//                                items(standard.detailsList!!){ standardItem ->
-//                                    Text(text = standardItem)
+//                                items(option.optionalList){ optionItem ->
+//                                    Text(text = optionItem,
+//                                        modifier = Modifier
+//                                            .background(color =
+//                                            if (optionItem.lowercase().contains("color")){
+//                                                Color(android.graphics.Color.parseColor(optionItem))
+//                                            }else{
+//                                                Color.Transparent
+//                                            }
+//                                            ),
+//                                        style = TextStyle(
+//                                            color =
+//                                            if(optionItem.lowercase().contains("color") &&
+//                                                !android.graphics.Color.parseColor(optionItem).isColorDark()
+//                                            ){
+//                                                Color.Black
+//                                            }else{
+//                                                Color.White
+//                                            }
+//                                        )
+//                                    )
 //                                }
 //                            },
 //                            modifier = Modifier
-//                                .height(25.dp)
 //                        )
 //                    }
 //                }
 //            }
 //        )
+
+        Text(text = "Add to Cart",
+            modifier = Modifier
+                .padding(top = 16.dp),
+            color = Color.White
+        )
     }
 }
 
