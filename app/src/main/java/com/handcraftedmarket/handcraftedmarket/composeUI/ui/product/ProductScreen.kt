@@ -119,7 +119,6 @@ fun ProductScreen(navController: NavController?) {
                             modifier = Modifier
                                 .padding(8.dp)
                         ) {
-                            Log.e("ProdScreen", url)
                             Image(
                                 painter = rememberImagePainter(data = url),
                                 contentDescription = "Product Image",
@@ -189,10 +188,21 @@ fun ProductScreen(navController: NavController?) {
             modifier = Modifier
                 .size(height = sizeAn.height.dp, width = sizeAn.width.dp),
             content = {
-                items(viewModel.product.value?.productStandard!!){ standard: StandardDetails ->
+                items(
+                    if(viewModel.product.value?.productStandard != null) {
+                        viewModel.product.value?.productStandard!!
+                    }else{
+                        val detail = StandardDetails()
+                        detail.attribute = "None Available"
+                        detail.detailsList = arrayListOf()
+                        arrayListOf(detail)
+                    }
+                ){ standard: StandardDetails ->
                     Row(
                         modifier = Modifier
-                            .height(24.dp),
+                            .height(24.dp)
+                            .fillMaxWidth()
+                            .padding(end = 16.dp),
                         horizontalArrangement = Arrangement.End,
                         verticalAlignment = Alignment.CenterVertically
                     ){
@@ -261,70 +271,76 @@ fun ProductScreen(navController: NavController?) {
             )
         }
 
-//        LazyColumn(
-//            modifier = Modifier
-//                .size(height = customSizeAn.height.dp, width = customSizeAn.width.dp),
-//            content = {
-//                items(viewModel.product.value?.options!!){ item ->
-//                    Text(text = item.attribute,
-//                        style = TextStyle(color = Color.White)
-//                    )
-//                }
-//            })
+        LazyColumn(
+            modifier = Modifier
+                .size(height = customSizeAn.height.dp, width = customSizeAn.width.dp),
+            content = {
+                items(
+                    if(viewModel.product.value?.options != null) {
+                        viewModel.product.value?.options!!
+                    }else{
+                        val deet = StandardDetails()
+                        deet.attribute = "None Available"
+                        deet.detailsList = arrayListOf()
+                        arrayListOf(deet)
+                    }){ option ->
+                    Row(
+                        modifier = Modifier
+                            .height(24.dp)
+                            .fillMaxWidth()
+                            .padding(end = 16.dp),
+                        horizontalArrangement = Arrangement.End,
+                        verticalAlignment = Alignment.CenterVertically
+                    ){
+                        Text(text = option.attribute,
+                            modifier = Modifier
+                                .padding(end = 16.dp)
+                        )
 
-//        LazyColumn(
-//            modifier = Modifier
-//                .size(height = customSizeAn.height.dp, width = customSizeAn.width.dp),
-//            content = {
-//                items(viewModel.product.value?.options!!){ option ->
-//                    Row(
-//                        modifier = Modifier
-//                            .height(24.dp),
-//                        horizontalArrangement = Arrangement.End,
-//                        verticalAlignment = Alignment.CenterVertically
-//                    ){
-//                        Text(text = option.attribute,
-//                            modifier = Modifier
-//                                .padding(end = 16.dp)
-//                        )
 
-
-//                        LazyColumn(
-//                            content = {
-//                                items(option.optionalList){ optionItem ->
-//                                    Text(text = optionItem,
-//                                        modifier = Modifier
-//                                            .background(color =
-//                                            if (optionItem.lowercase().contains("color")){
-//                                                Color(android.graphics.Color.parseColor(optionItem))
-//                                            }else{
-//                                                Color.Transparent
-//                                            }
-//                                            ),
-//                                        style = TextStyle(
-//                                            color =
-//                                            if(optionItem.lowercase().contains("color") &&
-//                                                !android.graphics.Color.parseColor(optionItem).isColorDark()
-//                                            ){
-//                                                Color.Black
-//                                            }else{
-//                                                Color.White
-//                                            }
-//                                        )
-//                                    )
-//                                }
-//                            },
-//                            modifier = Modifier
-//                        )
-//                    }
-//                }
-//            }
-//        )
+                        LazyColumn(
+                            content = {
+                                items(option.detailsList){ optionItem ->
+                                    Text(text = optionItem,
+                                        modifier = Modifier
+                                            .background(color =
+                                                if (option.attribute.lowercase().contains("color")){
+                                                    Color(android.graphics.Color.parseColor(optionItem))
+                                                }else{
+                                                    Color.Transparent
+                                                }
+                                            ),
+                                        style = TextStyle(
+                                            color =
+                                            if(option.attribute.lowercase().contains("color") &&
+                                                !android.graphics.Color.parseColor(optionItem).isColorDark()
+                                            ){
+                                                Color.Black
+                                            }else{
+                                                Color.White
+                                            }
+                                        )
+                                    )
+                                }
+                            },
+                            modifier = Modifier
+                        )
+                    }
+                }
+            }
+        )
 
         Text(text = "Add to Cart",
             modifier = Modifier
-                .padding(top = 16.dp),
-            color = Color.White
+                .clickable{
+                    //TODO ADD TO CART
+                }
+                .padding(top = 16.dp, bottom = 24.dp),
+            style = TextStyle(
+                color = Color.White,
+                fontSize = 24.sp,
+                fontFamily = Niconne
+            )
         )
     }
 }
