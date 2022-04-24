@@ -2,7 +2,9 @@ package com.handcraftedmarket.handcraftedmarket.viewModel
 
 import android.app.Application
 import android.util.Log
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.produceState
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import com.handcraftedmarket.handcraftedmarket.model.Product
@@ -31,11 +33,20 @@ class ProductListVM(application: Application): BaseViewModel(application = appli
 
     fun saveProduct(
         product: Product,
-        navController: NavController?
+        navController: NavController?,
+        navigating: MutableState<Boolean>
     ){
         viewModelScope.launch {
+            navigating.value = true
+            productRepo.nukeProduct()
             productRepo.storeToCache(product)
             navController?.navigate(Screen.ProductScreen.route)
+        }
+    }
+
+    fun nukeProduct(){
+        viewModelScope.launch {
+            productRepo.nukeProduct()
         }
     }
 }

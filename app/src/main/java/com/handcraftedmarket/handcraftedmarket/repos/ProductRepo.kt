@@ -23,7 +23,7 @@ class ProductRepo: DatabaseRepo<Product>() {
         }
     }
 
-    public override suspend fun nukeProduct(t: Product) {
+    public override suspend fun nukeProduct() {
         return productDao.nukeProduct()
     }
 }

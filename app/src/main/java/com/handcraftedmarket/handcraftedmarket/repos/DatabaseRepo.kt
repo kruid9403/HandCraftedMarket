@@ -15,8 +15,8 @@ abstract class DatabaseRepo<T>: BaseRepo<T>(), KoinComponent {
         TODO("Not yet implemented")
     }
 
-    override suspend fun nukeProduct(t: T) {
-        return nukeProduct(t)
+    override suspend fun nukeProduct() {
+        return nukeProduct()
     }
 
 }

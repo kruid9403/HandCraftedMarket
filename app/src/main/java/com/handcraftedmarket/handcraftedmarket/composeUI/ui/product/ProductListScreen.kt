@@ -10,6 +10,8 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
@@ -32,6 +34,11 @@ import com.handcraftedmarket.handcraftedmarket.viewModel.ProductListVM
 fun ProductListScreen(navController: NavController?) {
     val viewModel: ProductListVM = viewModel()
     val context = LocalContext.current
+    val navigating = remember { mutableStateOf(false)}
+
+    if(!navigating.value) {
+        viewModel.nukeProduct()
+    }
 
     LazyVerticalGrid(
         cells = GridCells.Fixed(2),
@@ -44,7 +51,7 @@ fun ProductListScreen(navController: NavController?) {
                 modifier = Modifier
                     .padding(8.dp)
                     .clickable {
-                        viewModel.saveProduct(product = prod, navController = navController)
+                        viewModel.saveProduct(product = prod, navController = navController, navigating = navigating)
                     },
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {

@@ -11,5 +11,5 @@ abstract class BaseRepo<T> : KoinComponent {
 
     protected abstract suspend fun storeToCache(t: T)
 
-    protected abstract suspend fun nukeProduct(t: T)
+    protected abstract suspend fun nukeProduct()
 }

@@ -119,7 +119,7 @@ fun ProductScreen(navController: NavController?) {
             }
         )
 
-        Text(text = viewModel.product.value?.name!!,
+        Text(text = viewModel.product.value?.name ?: "",
             style = TextStyle(
                 fontFamily = Niconne,
                 fontSize = 36.sp,
@@ -130,7 +130,7 @@ fun ProductScreen(navController: NavController?) {
                 .padding(top = 8.dp, start = 16.dp, end = 16.dp)
         )
 
-        Text(text = viewModel.product.value?.description!!,
+        Text(text = viewModel.product.value?.description ?: "",
             style = TextStyle(
                 fontSize = 16.sp,
                 textAlign = TextAlign.Center

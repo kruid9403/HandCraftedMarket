@@ -21,10 +21,4 @@ class ProductDetailVM(application: Application): BaseViewModel(application), Koi
         }
 
     }
-
-    fun nukeProduct(){
-        viewModelScope.launch {
-            productDao.nukeProduct()
-        }
-    }
 }

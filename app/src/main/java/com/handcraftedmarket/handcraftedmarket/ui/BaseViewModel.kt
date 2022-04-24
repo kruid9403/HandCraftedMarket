@@ -52,8 +52,5 @@ open class BaseViewModel(application: Application): AndroidViewModel(application
                     Log.e("BaseVM", "change")
                 }
             }
-        viewModelScope.launch {
-            product.value = productRepo.checkCache()
-        }
     }
 }
