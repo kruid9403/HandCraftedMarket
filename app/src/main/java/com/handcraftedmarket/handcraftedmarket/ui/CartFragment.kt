@@ -20,9 +20,7 @@ class CartFragment : BaseFragment() {
     private lateinit var viewModel: CartVM
     private lateinit var adapter: CartAdapter
 
-    private var cartList = CartList()
-    private var setRecycler = false
-
+    private var cartList = CartList(HashMap())
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -33,16 +31,16 @@ class CartFragment : BaseFragment() {
 
 
 
-        viewModel.cartList.observe(viewLifecycleOwner){
-            if (!setRecycler){
-                binding.cartRecycler.layoutManager = LinearLayoutManager(requireContext())
-                adapter = CartAdapter(requireContext(), it)
-                binding.cartRecycler.adapter = adapter
-                setRecycler = true
-            }else {
-                adapter.updateData(it)
-            }
-        }
+//        viewModel.cartList.observe(viewLifecycleOwner){
+//            if (!setRecycler){
+//                binding.cartRecycler.layoutManager = LinearLayoutManager(requireContext())
+//                adapter = CartAdapter(requireContext(), it)
+//                binding.cartRecycler.adapter = adapter
+//                setRecycler = true
+//            }else {
+//                adapter.updateData(it)
+//            }
+//        }
 
 
 

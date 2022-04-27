@@ -1,49 +1,42 @@
 package com.handcraftedmarket.handcraftedmarket.model
 
+import androidx.annotation.Keep
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.squareup.moshi.JsonClass
 import java.io.Serializable
 
+@Keep
 @Entity
-@JsonClass(generateAdapter = true)
-data class Product(
-    @PrimaryKey var id: String,
-    var name: String,
-    var imgUrl: ArrayList<String>,
-    var price: Double,
-    var description: String,
-    var creator: String,
-    var visible: Boolean,
-    var saleCount: Int,
-    var backOrder: Boolean,
-    var productStandard: ArrayList<StandardDetails>,
-    var options: ArrayList<StandardDetails>,
-    var category: String,
-    var quantity: Int,
-    var purchaseQty: Int
-):Serializable{
-    constructor() : this("","",ArrayList(),0.0,"","",true,0,true,
-        ArrayList(), ArrayList(), "none", 0, 0
-    )
+class Product: Serializable {
+    @PrimaryKey var id: String = ""
+    var name: String = ""
+    var imgUrl: ArrayList<String> = arrayListOf()
+    var price: Double = 0.0
+    var description: String = ""
+    var creator: String = ""
+    var visible: Boolean = true
+    var saleCount: Int = 0
+    var backOrder: Boolean = false
+    var productStandard: ArrayList<StandardDetails> = arrayListOf()
+    var options: ArrayList<StandardDetails> = arrayListOf()
+    var category: String = ""
+    var quantity: Int = 0
+    var purchaseQty: Int = 0
+
 }
 
+@Keep
+class ProductOptions:Serializable {
+    var attribute: String = ""
+    var optionalList: ArrayList<String> = arrayListOf()
 
-@Entity
-@JsonClass(generateAdapter = true)
-data class ProductOptions(
-    var attribute: String,
-    var optionalList: ArrayList<String>
-): Serializable {
-    constructor(): this("", ArrayList())
 }
 
-@Entity
-@JsonClass(generateAdapter = true)
-data class StandardDetails(
-    var attribute: String,
-    var detailsList: ArrayList<String>
-): Serializable{
-    constructor():this("", ArrayList())
+@Keep
+class StandardDetails:Serializable {
+    var attribute: String = ""
+    var detailsList: ArrayList<String> = arrayListOf()
+
 }
 

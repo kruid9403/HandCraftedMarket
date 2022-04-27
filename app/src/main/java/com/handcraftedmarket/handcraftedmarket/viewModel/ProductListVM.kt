@@ -21,6 +21,7 @@ class ProductListVM(application: Application): BaseViewModel(application = appli
         firebaseManager.productData().whereEqualTo("visible", true)
             .get().addOnSuccessListener { docs ->
                 docs.documents.map {
+                    firebaseManager.firebaseToProduct(it)
                     val product = it.toObject(Product::class.java)
                     product?.imgUrl?.removeAll(arrayListOf(""))
                     productList.add(product!!)

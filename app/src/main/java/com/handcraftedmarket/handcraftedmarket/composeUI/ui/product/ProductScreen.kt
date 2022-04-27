@@ -1,6 +1,6 @@
 package com.handcraftedmarket.handcraftedmarket.composeUI.ui.product
 
-import android.util.Log
+import android.widget.Toast
 import androidx.activity.compose.BackHandler
 import androidx.compose.animation.core.LinearOutSlowInEasing
 import androidx.compose.animation.core.animateSizeAsState
@@ -37,7 +37,6 @@ import com.guru.fontawesomecomposelib.FaIcon
 import com.guru.fontawesomecomposelib.FaIcons
 import com.handcraftedmarket.handcraftedmarket.composeUI.ui.theme.ColorOnPrimary
 import com.handcraftedmarket.handcraftedmarket.composeUI.ui.theme.Niconne
-import com.handcraftedmarket.handcraftedmarket.model.ProductOptions
 import com.handcraftedmarket.handcraftedmarket.model.StandardDetails
 import com.handcraftedmarket.handcraftedmarket.utils.isColorDark
 import com.handcraftedmarket.handcraftedmarket.viewModel.ProductDetailVM
@@ -47,12 +46,17 @@ import com.handcraftedmarket.handcraftedmarket.viewModel.ProductDetailVM
 fun ProductScreen(navController: NavController?) {
 
     val viewModel: ProductDetailVM = viewModel()
-    viewModel.getProduct()
+    val prodChecked = remember { mutableStateOf(false) }
+
+    if (!prodChecked.value) {
+        viewModel.getProduct()
+        prodChecked.value = true
+    }
 
     val context = LocalContext.current
     val scrollState = rememberScrollState()
 
-    val primeImage = remember { mutableStateOf(viewModel.product.value?.imgUrl?.get(0)) }
+    val primeImage = remember { mutableStateOf(viewModel.prod.value?.imgUrl?.get(0)) }
     val standardVis = remember { mutableStateOf(false) }
     val standardOpenState = remember { mutableStateOf(false) }
     val customOpenState = remember { mutableStateOf(false) }
@@ -108,8 +112,8 @@ fun ProductScreen(navController: NavController?) {
         LazyRow(
             content = {
                 items(
-                    if(viewModel.product.value?.imgUrl != null) {
-                        viewModel.product.value?.imgUrl!!
+                    if(viewModel.prod.value?.imgUrl != null) {
+                        viewModel.prod.value?.imgUrl!!
                     }else{
                         arrayListOf()
                     }
@@ -136,7 +140,7 @@ fun ProductScreen(navController: NavController?) {
             }
         )
 
-        Text(text = viewModel.product.value?.name ?: "",
+        Text(text = viewModel.prod.value?.name ?: "",
             style = TextStyle(
                 fontFamily = Niconne,
                 fontSize = 36.sp,
@@ -147,7 +151,7 @@ fun ProductScreen(navController: NavController?) {
                 .padding(top = 8.dp, start = 16.dp, end = 16.dp)
         )
 
-        Text(text = viewModel.product.value?.description ?: "",
+        Text(text = viewModel.prod.value?.description ?: "",
             style = TextStyle(
                 fontSize = 16.sp,
                 textAlign = TextAlign.Center
@@ -189,8 +193,8 @@ fun ProductScreen(navController: NavController?) {
                 .size(height = sizeAn.height.dp, width = sizeAn.width.dp),
             content = {
                 items(
-                    if(viewModel.product.value?.productStandard != null) {
-                        viewModel.product.value?.productStandard!!
+                    if(viewModel.prod.value?.productStandard != null) {
+                        viewModel.prod.value?.productStandard!!
                     }else{
                         val detail = StandardDetails()
                         detail.attribute = "None Available"
@@ -276,13 +280,13 @@ fun ProductScreen(navController: NavController?) {
                 .size(height = customSizeAn.height.dp, width = customSizeAn.width.dp),
             content = {
                 items(
-                    if(viewModel.product.value?.options != null) {
-                        viewModel.product.value?.options!!
+                    if(viewModel.prod.value?.options != null) {
+                        viewModel.prod.value?.options!!
                     }else{
-                        val deet = StandardDetails()
-                        deet.attribute = "None Available"
-                        deet.detailsList = arrayListOf()
-                        arrayListOf(deet)
+                        val detail = StandardDetails()
+                        detail.attribute = "None Available"
+                        detail.detailsList = arrayListOf()
+                        arrayListOf(detail)
                     }){ option ->
                     Row(
                         modifier = Modifier
@@ -333,7 +337,7 @@ fun ProductScreen(navController: NavController?) {
         Text(text = "Add to Cart",
             modifier = Modifier
                 .clickable{
-                    //TODO ADD TO CART
+                    viewModel.addToCart()
                 }
                 .padding(top = 16.dp, bottom = 24.dp),
             style = TextStyle(

@@ -43,7 +43,51 @@
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:277277686872:android:c5512874190147ad279e2d",
+        "mobilesdk_app_id": "1:277277686872:android:6f6f75a1eae37762279e2d",
+        "android_client_info": {
+          "package_name": "com.handcraftedmarket"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "277277686872-s7riepd3uclu4ahebikluddt13urhmn7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.handcraftedmarket",
+            "certificate_hash": "ce69c6474a2437db34646784583bcda70c08c51f"
+          }
+        },
+        {
+          "client_id": "277277686872-1n0kg6r0qgj6fef132mnjefou8ijehud.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCd6Oy6xIq_BmAzGN1J7iPb57iug0Q5h-A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "277277686872-1n0kg6r0qgj6fef132mnjefou8ijehud.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "277277686872-qv93pf2pthaebpa373nksctme4ft7p9j.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "jeremykruid.HandCraftedCreator"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:277277686872:android:71f34f0ec008a348279e2d",
         "android_client_info": {
           "package_name": "com.handcraftedmarket.handcraftedmarket"
         }

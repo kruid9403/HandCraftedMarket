@@ -29,73 +29,73 @@ class LoginFragment : Fragment(), View.OnClickListener {
         // Inflate the layout for this fragment
 
         binding = FragmentLoginBinding.inflate(layoutInflater)
-
-        binding.loginBtn.setOnClickListener(this)
-        binding.loginForgot.setOnClickListener(this)
-        binding.loginRegister.setOnClickListener(this)
-
-        if(arguments!= null){
-            product = arguments?.get("product") as Product
-        }else{
-            product = Product()
-        }
+//
+//        binding.loginBtn.setOnClickListener(this)
+//        binding.loginForgot.setOnClickListener(this)
+//        binding.loginRegister.setOnClickListener(this)
+//
+//        if(arguments!= null){
+//            product = arguments?.get("product") as Product
+//        }else{
+//            product = Product()
+//        }
 
         return binding.root
     }
 
     override fun onClick(v: View?) {
-        var bundle = bundleOf()
-        if (product != Product()){
-            bundle = bundleOf(
-                "product" to product
-            )
-        }
-        when(v){
-            binding.loginBtn -> {
-                if (binding.loginEmail.text.toString().trim() != "" && binding.loginPassword.toString().trim() != "") {
-                    FirebaseAuth.getInstance().signInWithEmailAndPassword(
-                        binding.loginEmail.text.toString().trim(),
-                        binding.loginPassword.text.toString().trim()
-                    )
-                        .addOnSuccessListener {
-                            firebaseManager.customerData().get()
-                                .addOnSuccessListener { doc ->
-                                if (doc.exists()) {
-                                    if (product == Product()) {
-                                        findNavController().navigate(R.id.productFragment2)
-                                    }else{
-                                        findNavController().navigate(R.id.productDetailFragment, bundle)
-                                    }
-                                } else {
-
-                                    findNavController().navigate(R.id.profileFragment, bundle)
-                                }
-                            }
-                                .addOnFailureListener { findNavController().navigate(R.id.profileFragment) }
-
-                        }
-                        .addOnFailureListener {
-                            findNavController().navigate(R.id.profileFragment, bundle)
-                        }
-                }
-            }
-
-            binding.loginRegister -> {
-                findNavController().navigate(R.id.registerFragment, bundle)
-            }
-
-            binding.loginForgot -> {
-                if (binding.loginEmail.text.toString().trim() != "") {
-                    FirebaseAuth.getInstance()
-                        .sendPasswordResetEmail(binding.loginEmail.text.toString().trim())
-                        .addOnSuccessListener {
-                            Toast.makeText(requireContext(), "Email Sent", Toast.LENGTH_SHORT).show()
-                        }
-                        .addOnFailureListener {
-                            Toast.makeText(requireContext(), it.localizedMessage, Toast.LENGTH_SHORT).show()
-                        }
-                }
-            }
-        }
+//        var bundle = bundleOf()
+//        if (product != Product()){
+//            bundle = bundleOf(
+//                "product" to product
+//            )
+//        }
+//        when(v){
+//            binding.loginBtn -> {
+//                if (binding.loginEmail.text.toString().trim() != "" && binding.loginPassword.toString().trim() != "") {
+//                    FirebaseAuth.getInstance().signInWithEmailAndPassword(
+//                        binding.loginEmail.text.toString().trim(),
+//                        binding.loginPassword.text.toString().trim()
+//                    )
+//                        .addOnSuccessListener {
+//                            firebaseManager.customerData().get()
+//                                .addOnSuccessListener { doc ->
+//                                if (doc.exists()) {
+//                                    if (product == Product()) {
+//                                        findNavController().navigate(R.id.productFragment2)
+//                                    }else{
+//                                        findNavController().navigate(R.id.productDetailFragment, bundle)
+//                                    }
+//                                } else {
+//
+//                                    findNavController().navigate(R.id.profileFragment, bundle)
+//                                }
+//                            }
+//                                .addOnFailureListener { findNavController().navigate(R.id.profileFragment) }
+//
+//                        }
+//                        .addOnFailureListener {
+//                            findNavController().navigate(R.id.profileFragment, bundle)
+//                        }
+//                }
+//            }
+//
+//            binding.loginRegister -> {
+//                findNavController().navigate(R.id.registerFragment, bundle)
+//            }
+//
+//            binding.loginForgot -> {
+//                if (binding.loginEmail.text.toString().trim() != "") {
+//                    FirebaseAuth.getInstance()
+//                        .sendPasswordResetEmail(binding.loginEmail.text.toString().trim())
+//                        .addOnSuccessListener {
+//                            Toast.makeText(requireContext(), "Email Sent", Toast.LENGTH_SHORT).show()
+//                        }
+//                        .addOnFailureListener {
+//                            Toast.makeText(requireContext(), it.localizedMessage, Toast.LENGTH_SHORT).show()
+//                        }
+//                }
+//            }
+//        }
     }
 }

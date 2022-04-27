@@ -29,39 +29,39 @@ class RegisterFragment : BaseFragment(), View.OnClickListener {
     ): View? {
         // Inflate the layout for this fragment
         binding = FragmentRegisterBinding.inflate(layoutInflater)
-
-        binding.registerBtn.setOnClickListener(this)
-        binding.registerLogin.setOnClickListener(this)
-
-        if (arguments?.get("product") != null){
-            product = arguments?.get("product") as Product
-        }else{
-            product = Product()
-        }
+//
+//        binding.registerBtn.setOnClickListener(this)
+//        binding.registerLogin.setOnClickListener(this)
+//
+//        if (arguments?.get("product") != null){
+//            product = arguments?.get("product") as Product
+//        }else{
+//            product = Product()
+//        }
 
         return binding.root
     }
 
     override fun onClick(v: View?) {
-        val bundle = bundleOf(
-            "product" to product
-        )
-        when(v){
-            binding.registerBtn -> {
-                auth.createUserWithEmailAndPassword(
-                    binding.registerEmail.text.toString().trim(),
-                    binding.registerPassword.text.toString().trim()
-                )
-                    .addOnSuccessListener {
-                        findNavController().navigate(R.id.loginFragment, bundle)
-                    }
-                    .addOnFailureListener {
-                        Toast.makeText(requireContext(), it.localizedMessage, Toast.LENGTH_SHORT).show()
-                    }
-            }
-            binding.registerLogin -> {
-                findNavController().navigate(R.id.loginFragment, bundle)
-            }
-        }
+//        val bundle = bundleOf(
+//            "product" to product
+//        )
+//        when(v){
+//            binding.registerBtn -> {
+//                auth.createUserWithEmailAndPassword(
+//                    binding.registerEmail.text.toString().trim(),
+//                    binding.registerPassword.text.toString().trim()
+//                )
+//                    .addOnSuccessListener {
+//                        findNavController().navigate(R.id.loginFragment, bundle)
+//                    }
+//                    .addOnFailureListener {
+//                        Toast.makeText(requireContext(), it.localizedMessage, Toast.LENGTH_SHORT).show()
+//                    }
+//            }
+//            binding.registerLogin -> {
+//                findNavController().navigate(R.id.loginFragment, bundle)
+//            }
+//        }
     }
 }

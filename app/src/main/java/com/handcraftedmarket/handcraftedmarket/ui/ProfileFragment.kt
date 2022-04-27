@@ -24,31 +24,31 @@ class ProfileFragment : BaseFragment(), View.OnClickListener {
     ): View {
         // Inflate the layout for this fragment
         binding = FragmentProfileBinding.inflate(layoutInflater)
-
-        product = if (arguments?.get("product") != null){
-            arguments?.get("product") as Product
-        }else{
-            Product()
-        }
-
-        binding.profileSkip.setOnClickListener(this)
+//
+//        product = if (arguments?.get("product") != null){
+//            arguments?.get("product") as Product
+//        }else{
+//            Product()
+//        }
+//
+//        binding.profileSkip.setOnClickListener(this)
 
         return binding.root
     }
 
     override fun onClick(v: View?) {
-        val bundle = bundleOf(
-            "product" to product
-        )
-
-        when(v){
-            binding.profileSkip -> {
-                if (product != Product()){
-                    findNavController().navigate(R.id.productDetailFragment, bundle)
-                }else{
-                    findNavController().navigate(R.id.productFragment2)
-                }
-            }
-        }
+//        val bundle = bundleOf(
+//            "product" to product
+//        )
+//
+//        when(v){
+//            binding.profileSkip -> {
+//                if (product != Product()){
+//                    findNavController().navigate(R.id.productDetailFragment, bundle)
+//                }else{
+//                    findNavController().navigate(R.id.productFragment2)
+//                }
+//            }
+//        }
     }
 }

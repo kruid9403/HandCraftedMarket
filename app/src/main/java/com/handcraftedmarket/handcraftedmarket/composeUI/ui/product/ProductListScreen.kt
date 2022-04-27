@@ -1,5 +1,6 @@
 package com.handcraftedmarket.handcraftedmarket.composeUI.ui.product
 
+import android.util.Log
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -26,7 +27,9 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
+import com.google.firebase.auth.FirebaseAuth
 import com.handcraftedmarket.handcraftedmarket.composeUI.ui.theme.Niconne
+import com.handcraftedmarket.handcraftedmarket.utils.nav.Screen
 import com.handcraftedmarket.handcraftedmarket.viewModel.ProductListVM
 
 @OptIn(ExperimentalFoundationApi::class, ExperimentalCoilApi::class)

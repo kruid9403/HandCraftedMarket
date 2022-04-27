@@ -7,7 +7,7 @@ import com.squareup.moshi.JsonClass
 @JsonClass(generateAdapter = true)
 data class Cart(
     var creator: String,
-    var products: ArrayList<Product>
+    var products: HashMap<String, Product>
 ){
-    constructor() : this("", ArrayList())
+    constructor() : this("", hashMapOf())
 }

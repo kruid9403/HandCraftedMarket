@@ -22,9 +22,8 @@ open class BaseViewModel(application: Application): AndroidViewModel(application
     val auth = FirebaseAuth.getInstance()
 
     val customer by lazy { MutableLiveData<Customer>() }
-    val cartList by lazy { MutableLiveData<CartList>() }
-    val product = mutableStateOf<Product?>(null)
-
+    val cartList = mutableStateOf<CartList>(CartList(HashMap()))
+    val cartId = mutableStateOf<ArrayList<String>>(arrayListOf())
 
     val productRepo: ProductRepo by inject()
 
@@ -41,15 +40,16 @@ open class BaseViewModel(application: Application): AndroidViewModel(application
                 }
             }
 
+        val tempList = ArrayList<String>()
         firebaseManager.cart()
-            .addSnapshotListener { value, error ->
-                if (error != null){
-                    Log.e("BaseVM", error.toString())
-                }
-                if (value != null){
-                    val cart = value.toObject(CartList::class.java)
-                    cartList.postValue(cart)
-                    Log.e("BaseVM", "change")
+            .get()
+            .continueWith {doc ->
+                Log.e("BaseVM", doc.result.data.toString())
+                if (doc.isSuccessful){
+                    doc.result.data?.forEach {
+                        tempList.add(it.key.toString())
+                    }
+                    cartId.value = tempList
                 }
             }
     }

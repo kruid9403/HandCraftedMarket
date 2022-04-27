@@ -39,8 +39,8 @@ class CartAdapter (val context: Context, val cartList: CartList):
 
             val recycler = itemView.findViewById<RecyclerView>(R.id.item_cart_product_recycler)
             recycler.layoutManager = LinearLayoutManager(context)
-            val adapter = CartProductAdapter(context, cart.products)
-            recycler.adapter = adapter
+//            val adapter = CartProductAdapter(context, cart.products)
+//            recycler.adapter = adapter
 
         }
     }
@@ -57,8 +57,8 @@ class CartAdapter (val context: Context, val cartList: CartList):
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val cart = list[position]
-        holder.bind(cart, position)
+//        val cart = list[position]
+//        holder.bind(cart, position)
     }
 
     override fun getItemCount(): Int {

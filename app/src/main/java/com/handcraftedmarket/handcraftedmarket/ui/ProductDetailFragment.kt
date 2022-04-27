@@ -43,7 +43,7 @@ class ProductDetailFragment : Fragment(),
 
     private var imgPosition = 0
     private val firebaseManager = FirebaseManager()
-    private var cart = CartList()
+    private var cart = CartList(HashMap())
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
