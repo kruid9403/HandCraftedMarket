@@ -10,8 +10,8 @@ import com.handcraftedmarket.handcraftedmarket.model.Cart
 import com.handcraftedmarket.handcraftedmarket.model.Product
 import com.handcraftedmarket.handcraftedmarket.ui.BaseViewModel
 import kotlinx.coroutines.launch
-import org.koin.core.KoinComponent
-import org.koin.core.inject
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 
 class ProductDetailVM(application: Application): BaseViewModel(application), KoinComponent {
 

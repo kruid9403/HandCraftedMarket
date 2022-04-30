@@ -2,19 +2,18 @@ package com.handcraftedmarket.handcraftedmarket.ui
 
 import android.app.Application
 import android.util.Log
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
 import com.handcraftedmarket.handcraftedmarket.managers.FirebaseManager
 import com.handcraftedmarket.handcraftedmarket.model.Customer
 import com.google.firebase.auth.FirebaseAuth
-import com.handcraftedmarket.handcraftedmarket.model.CartList
 import com.handcraftedmarket.handcraftedmarket.model.Product
 import com.handcraftedmarket.handcraftedmarket.repos.ProductRepo
-import kotlinx.coroutines.launch
-import org.koin.core.KoinComponent
-import org.koin.core.inject
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
+import java.util.Arrays
 
 open class BaseViewModel(application: Application): AndroidViewModel(application), KoinComponent {
 
@@ -22,8 +21,9 @@ open class BaseViewModel(application: Application): AndroidViewModel(application
     val auth = FirebaseAuth.getInstance()
 
     val customer by lazy { MutableLiveData<Customer>() }
-    val cartList = mutableStateOf<CartList>(CartList(HashMap()))
-    val cartId = mutableStateOf<ArrayList<String>>(arrayListOf())
+//    val cartList = mutableStateListOf<Product>()
+//    val cartId = mutableStateOf<ArrayList<String>>(arrayListOf())
+//    val cartData = mutableStateListOf<Product>()
 
     val productRepo: ProductRepo by inject()
 
@@ -40,17 +40,32 @@ open class BaseViewModel(application: Application): AndroidViewModel(application
                 }
             }
 
-        val tempList = ArrayList<String>()
-        firebaseManager.cart()
-            .get()
-            .continueWith {doc ->
-                Log.e("BaseVM", doc.result.data.toString())
-                if (doc.isSuccessful){
-                    doc.result.data?.forEach {
-                        tempList.add(it.key.toString())
-                    }
-                    cartId.value = tempList
-                }
-            }
+//        val tempList = ArrayList<String>()
+//        firebaseManager.cart()
+//            .get()
+//            .continueWith {doc ->
+//                if (doc.isSuccessful){
+//                    doc.result.data?.forEach {
+//                        tempList.add(it.key.toString())
+//                    }
+//                    cartId.value = tempList
+//                    getDetails()
+//                }
+//            }
+    }
+
+    fun getDetails(){
+//        cartId.value.forEach {
+//            firebaseManager.productData()
+//                .whereEqualTo("id", it)
+//                .get()
+//                .continueWith{doc ->
+//                    val product = doc.result.toObjects(Product::class.java)
+//                    product.forEach {prod ->
+//                        cartData.add(prod)
+//                        Log.e("BaseVM", cartData.size.toString())
+//                    }
+//                }
+//        }
     }
 }

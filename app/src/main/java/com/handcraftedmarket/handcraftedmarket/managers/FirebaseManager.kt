@@ -4,11 +4,9 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 import com.handcraftedmarket.handcraftedmarket.model.Product
-import com.handcraftedmarket.handcraftedmarket.model.StandardDetails
-import org.koin.core.Koin
-import org.koin.core.KoinComponent
+import org.koin.core.component.KoinComponent
 
-class FirebaseManager(): KoinComponent{
+class FirebaseManager(): KoinComponent {
 
     val auth = FirebaseAuth.getInstance()
     val firestore = FirebaseFirestore.getInstance()

@@ -12,7 +12,7 @@ import java.lang.reflect.Type
 
 @Database(
     entities = [Product::class],
-    version = 1,
+    version = 2,
     exportSchema = false
 )
 

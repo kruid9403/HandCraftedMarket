@@ -11,7 +11,7 @@ import com.handcraftedmarket.handcraftedmarket.model.Product
 import com.handcraftedmarket.handcraftedmarket.ui.BaseViewModel
 import com.handcraftedmarket.handcraftedmarket.utils.nav.Screen
 import kotlinx.coroutines.launch
-import org.koin.core.KoinComponent
+import org.koin.core.component.KoinComponent
 
 class ProductListVM(application: Application): BaseViewModel(application = application), KoinComponent {
 

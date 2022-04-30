@@ -1,7 +1,7 @@
 package com.handcraftedmarket.handcraftedmarket.repos
 
 import kotlinx.coroutines.flow.Flow
-import org.koin.core.KoinComponent
+import org.koin.core.component.KoinComponent
 
 abstract class BaseRepo<T> : KoinComponent {
 

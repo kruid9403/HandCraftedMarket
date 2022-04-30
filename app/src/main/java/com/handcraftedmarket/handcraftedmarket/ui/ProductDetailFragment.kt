@@ -24,8 +24,6 @@ import com.handcraftedmarket.handcraftedmarket.model.Cart
 import com.handcraftedmarket.handcraftedmarket.model.CartList
 import com.handcraftedmarket.handcraftedmarket.model.Product
 import com.handcraftedmarket.handcraftedmarket.viewModel.ProductDetailVM
-import org.koin.android.ext.android.bind
-import java.text.NumberFormat
 
 class ProductDetailFragment : Fragment(), 
     ShopViewPhotoAdapter.PhotoClicked, 

@@ -23,6 +23,7 @@ class Product: Serializable {
     var category: String = ""
     var quantity: Int = 0
     var purchaseQty: Int = 0
+    var purchaseCheck: Boolean = false
 
 }
 

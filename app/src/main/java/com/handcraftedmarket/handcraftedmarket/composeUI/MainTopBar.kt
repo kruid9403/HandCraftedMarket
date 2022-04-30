@@ -105,13 +105,13 @@ fun MainTopBar(navController: NavController?, scaffoldState: ScaffoldState?) {
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.Center
             ) {
-                Text(
-                    text = viewModel.cartId.value.size.toString(),
-                    style = TextStyle(
-                        color = Color.White,
-                        fontSize = 10.sp
-                    ),
-                )
+//                Text(
+//                    text = viewModel.car.value.size.toString(),
+//                    style = TextStyle(
+//                        color = Color.White,
+//                        fontSize = 10.sp
+//                    ),
+//                )
             }
         }
     }

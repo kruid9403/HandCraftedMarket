@@ -1,18 +1,14 @@
 package com.handcraftedmarket.handcraftedmarket.ui
 
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.handcraftedmarket.handcraftedmarket.R
 import com.handcraftedmarket.handcraftedmarket.adapter.CartAdapter
 import com.handcraftedmarket.handcraftedmarket.databinding.FragmentCartBinding
 import com.handcraftedmarket.handcraftedmarket.model.CartList
-import com.handcraftedmarket.handcraftedmarket.viewModel.CartVM
+import com.handcraftedmarket.handcraftedmarket.composeUI.ui.cart.CartVM
 
 class CartFragment : BaseFragment() {
 

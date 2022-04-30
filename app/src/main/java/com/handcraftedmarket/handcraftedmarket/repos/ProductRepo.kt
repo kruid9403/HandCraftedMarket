@@ -4,7 +4,7 @@ import com.handcraftedmarket.handcraftedmarket.dao.ProductDao
 import com.handcraftedmarket.handcraftedmarket.model.Product
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import org.koin.core.inject
+import org.koin.core.component.inject
 
 class ProductRepo: DatabaseRepo<Product>() {
     private val productDao: ProductDao by inject()
