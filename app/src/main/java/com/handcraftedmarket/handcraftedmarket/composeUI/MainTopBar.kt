@@ -1,5 +1,6 @@
 package com.handcraftedmarket.handcraftedmarket.composeUI
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -30,6 +31,9 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun MainTopBar(navController: NavController?, scaffoldState: ScaffoldState?) {
+    
+    val TAG = "MainTopBar"
+    
     val scope = rememberCoroutineScope()
     val auth = FirebaseAuth.getInstance().currentUser
     val viewModel: BaseViewModel = viewModel()
@@ -105,13 +109,13 @@ fun MainTopBar(navController: NavController?, scaffoldState: ScaffoldState?) {
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.Center
             ) {
-//                Text(
-//                    text = viewModel.car.value.size.toString(),
-//                    style = TextStyle(
-//                        color = Color.White,
-//                        fontSize = 10.sp
-//                    ),
-//                )
+                Text(
+                    text = viewModel.cartList.keys.size.toString(),
+                    style = TextStyle(
+                        color = Color.White,
+                        fontSize = 10.sp
+                    ),
+                )
             }
         }
     }

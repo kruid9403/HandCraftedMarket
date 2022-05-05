@@ -4,6 +4,7 @@ import androidx.room.Room
 import com.handcraftedmarket.handcraftedmarket.db.Converters
 import com.handcraftedmarket.handcraftedmarket.db.Database
 import com.handcraftedmarket.handcraftedmarket.repos.ProductRepo
+import com.handcraftedmarket.handcraftedmarket.ui.BaseViewModel
 import com.handcraftedmarket.handcraftedmarket.utils.coroutines.CoroutineConfig
 import com.handcraftedmarket.handcraftedmarket.utils.coroutines.CoroutineConfigImpl
 import org.koin.android.ext.koin.androidContext

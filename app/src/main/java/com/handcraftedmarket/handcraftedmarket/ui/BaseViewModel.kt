@@ -3,9 +3,11 @@ package com.handcraftedmarket.handcraftedmarket.ui
 import android.app.Application
 import android.util.Log
 import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.mutableStateMapOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.handcraftedmarket.handcraftedmarket.managers.FirebaseManager
 import com.handcraftedmarket.handcraftedmarket.model.Customer
 import com.google.firebase.auth.FirebaseAuth
@@ -15,15 +17,15 @@ import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import java.util.Arrays
 
-open class BaseViewModel(application: Application): AndroidViewModel(application), KoinComponent {
+open class BaseViewModel: ViewModel(), KoinComponent {
+
+    val TAG = "BaseVM"
 
     val firebaseManager = FirebaseManager()
     val auth = FirebaseAuth.getInstance()
 
     val customer by lazy { MutableLiveData<Customer>() }
-//    val cartList = mutableStateListOf<Product>()
-//    val cartId = mutableStateOf<ArrayList<String>>(arrayListOf())
-//    val cartData = mutableStateListOf<Product>()
+    val cartList = mutableStateMapOf<String, Product>()
 
     val productRepo: ProductRepo by inject()
 
@@ -40,8 +42,20 @@ open class BaseViewModel(application: Application): AndroidViewModel(application
                 }
             }
 
-//        val tempList = ArrayList<String>()
-//        firebaseManager.cart()
+        val tempList = ArrayList<Product>()
+        firebaseManager.cart()
+            .collection("products")
+            .addSnapshotListener { value, error ->
+                if(error != null){
+                    Log.e("BaseViewModel", error.localizedMessage!!)
+                }
+                if (value?.documents?.size!! > 0){
+                    value.documents.forEach {doc ->
+                        val prod = doc.toObject(Product::class.java)
+                        cartList[prod?.id!!] = prod
+                    }
+                }
+            }
 //            .get()
 //            .continueWith {doc ->
 //                if (doc.isSuccessful){
@@ -54,8 +68,8 @@ open class BaseViewModel(application: Application): AndroidViewModel(application
 //            }
     }
 
-    fun getDetails(){
-//        cartId.value.forEach {
+//    fun getDetails(){
+//        cartId.forEach {
 //            firebaseManager.productData()
 //                .whereEqualTo("id", it)
 //                .get()
@@ -67,5 +81,5 @@ open class BaseViewModel(application: Application): AndroidViewModel(application
 //                    }
 //                }
 //        }
-    }
+//    }
 }

@@ -13,7 +13,7 @@ import kotlinx.coroutines.launch
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
-class ProductDetailVM(application: Application): BaseViewModel(application), KoinComponent {
+class ProductDetailVM(): BaseViewModel(), KoinComponent {
 
     val productDao: ProductDao by inject()
     val prod = mutableStateOf<Product?>(null)
@@ -26,10 +26,12 @@ class ProductDetailVM(application: Application): BaseViewModel(application), Koi
 
     fun addToCart() {
         val data = hashMapOf(
-            prod.value?.id!! to prod.value?.creator!!
+            prod.value?.id!! to prod.value
         )
         firebaseManager.cart()
-            .set(data, SetOptions.merge())
+            .collection("products")
+            .document(prod.value?.id!!)
+            .set(prod.value!!)
             .continueWith {
                 Log.e("ProductDetailVM", it.result.toString())
                 Log.e("ProductDetailVM", it.exception?.localizedMessage.toString())
